@@ -1,96 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-<title>Vector Ruler SVG Generator</title>
-<meta charset="UTF-8">
-<meta name="description" content="A web-based applet for the generation of downloadable vector rulers, suitable for laser etching">
-<meta name="keywords" content="Ilustrator,Vector,Vector Ruler, SVG, SVG ruler, Javascript SVG">
-<meta name="author" content="Robb Godshaw">
-<link rel="stylesheet" type="text/css" href="style.css">
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
-<script type="text/javascript" src="paper-full.js"></script>
-<script type="text/javascript" src="rulerGenerator.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Vectorruler by haichuanyu</title>
 
-</head>
-<body> 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Vectorruler</h1>
+        <p>A Javascript-based generator of laser cutter friendly etchable rulers</p>
 
-    <div class="bootstrap-frm">
-    <div class="ribbon">
-    <a href="https://github.com/robbbb/VectorRuler"><img  src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+        <p class="view"><a href="https://github.com/haichuanyu/VectorRuler">View the Project on GitHub <small>haichuanyu/VectorRuler</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/haichuanyu/VectorRuler/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/haichuanyu/VectorRuler/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/haichuanyu/VectorRuler">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="vectorruler" class="anchor" href="#vectorruler" aria-hidden="true"><span class="octicon octicon-link"></span></a>VectorRuler</h1>
+
+<p><a href="http://robbbb.github.io/VectorRuler/">
+<img src="AppletScreenshot.png?raw=true" alt="Screenshot Of applet" title="Screenshot Of applet"></a></p>
+
+<p>A Javascript-based generator of laser cutter friendly etchable rulers</p>
+
+<h3>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li> <strong>SVG</strong> Genrates fully vector based rulers ready for laser-etching, printing, plotting, or CAD applications</li>
+<li>Similar lines are grouped as labeled SVG layers when opened in Adobe Illustrator or Inkscape.</li>
+<li>Each line is labeled by its resolution and number as an SVG object</li>
+<li>Code is well-commented and sylistically sound allowing for easy modifications and pull requests</li>
+<li>Uses <a href="http://paperjs.org/">Paper.js</a> for drawing and export</li>
+<li>I referenced the <a href="http://paperjs.org/features/#svg-import-and-export">excellent SVG export example here</a>
+</li>
+<li>The default fort is not ideal for laser cutting, as it is not a true <a href="https://www.google.com/search?q=single+line+font&amp;oq=single+line+font&amp;aqs=chrome..69i57j69i60j69i65j69i59j69i61j69i60.2077j0j7&amp;sourceid=chrome&amp;es_sm=91&amp;ie=UTF-8">single-line font.</a>
+</li>
+<li>The text is editable as text, so it can easily be changed in Illustrator or Inkscape.</li>
+</ul>
+
+<p>Viewing the very well organized document tree of an exported ruler in Illustrator:</p>
+
+<p>Open the [Layers] Palette (Window &gt; Layers)
+click the [ ►Layer 1] arrow to view its children
+There will be a group for each tick level (1"in, ½:"in, ¼"in, ⅛"in... or 1cm. 0.1cm, 0.01cm...)▼
+All the labels can easily be changed in terms of size or font</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/haichuanyu">haichuanyu</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-    <div class="bootstrap-padded">
-    <h1>Vector Ruler Generator
-        <span>Download a laser cuttable ruler to etch into your belongings and belts.</span>
-    </h1>
-    <form id="rulerParameters" action="" >
-        <label>
-            <span>Width:</span>
-            <input type="text"  id="rulerWidth"  value="12"  >
-        </label>
-        <label>
-            <span>Height:</span>
-            <input type="text"  id="rulerHeight" value="1.5">
-        </label>
-
-            <label>
-                <span>Units:</span>
-            </label>
-                <Input type = "radio"  name="rulerUnits" value="inches" checked>
-                    Inches
-                    
-                <Input type = "radio"  name="rulerUnits" value="centimeters" >
-                    Centimeters
-                <br>
-                <Input type = "radio"  name= "subUnits" value = "2"   checked>
-                    Fractonal            
-                <Input type = "radio"  name= "subUnits" value = "10">
-                    Decimal
-            <label>
-                <span>Subdivisions: </span>
-                <select id="subUnitExponent"  style="width:30%" >
-                      <option value ="0">Zero</option>
-                      <option value ="1">One</option>  
-                      <option value ="2">Two</option>
-                      <option value ="3"
-                      selected          >Three</option>
-                      <option value ="4">Four</option>
-                      <option value ="5">Five</option>
-                      <option value ="6">Six </option>
-                </select>
-            </label>
-                        <label>
-                <span>Smaller tick legnth:</span>
-                <select id="levelToLevelMultiplier"  style="width:30%" >
-                      <option value ="0.1">0.1</option>
-                      <option value ="0.2">0.2</option>
-                      <option value ="0.3">0.3</option>  
-                      <option value ="0.4">0.4</option>
-                      <option value ="0.5"
-                      selected          >0.5 - Default</option>
-                      <option value ="0.6">0.6</option>
-                      <option value ="0.7">0.7</option>
-                      <option value ="0.8">0.8 </option>
-                      <option value ="0.9">0.9 </option>
-                      <option value ="1">1.0 - All ticks same size </option>
-
-                </select>
-            </label>
-            <label>
-                <span></span>
-            </label>
-                <input type="checkbox" name="redundant" id="redundant" >Draw redundant lines<br>
-    </form>
-    <form id="svgexpform" method="post" action="http://download-data-uri.appspot.com/" >
-        <b>Filename: </b>
-        <input type="text" name="filename" value="exportedRuler.svg">
-        <input id="svgexpdata" name="data" value="123" type="hidden">
-        <input type="button" class="button" value="Download ruler as .SVG" id="svgexpbutton">
-    </form>
-    <hr>
-</div>
-<div style="overflow-x:scroll;">
-    <canvas id="myCanvas" resize></canvas>
-</div>
-</div>
-</body>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
 </html>
